@@ -36,4 +36,6 @@ add_object(t_dict, "storeys", 2, ["pierwsze", "pierwsze piętro", "pierwszym", "
 add_object(t_dict, "storeys", 3, ["drugie", "drugie piętro", "drugim", "drugim piętrze"])
 add_object(t_dict, "storeys", 0, ["piwnica", "piwnicy"])
 
+add_object(t_dict, "devices", "light", ["lampa", "lampę", "światło", "oświetlenie", "żarówka", "żarówkę"])
 
+generate_translations_JSON(t_dict)
