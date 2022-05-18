@@ -31,7 +31,6 @@ def add_device(home_dict, name, room, detailed_place, possible_actions):
                                  "detailed_place": detailed_place,
                                  "possible_actions": possible_actions})
 
-
 home_dict = generate_home_dict()
 
 add_room(home_dict, "kitchen", 1)
