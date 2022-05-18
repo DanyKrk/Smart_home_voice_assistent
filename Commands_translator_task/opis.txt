@@ -1,0 +1,20 @@
+home_JSON_generator.py:
+Program generujący plik home_JSON.txt. Jak sama nazwa wskazuje, jest to plik w formacie JSON w którym zapisana jest struktura domu i znajdujące się w nim urządzenia.
+
+translations_JSON_generator.py: 
+Program generujący plik translations_JSON. Jest to plik w formacie JSON w którym polskim słowom przypisane są znaczenia (angielskie słowa - na wewnętrzny użytek).
+
+CommandsGenerator.py:
+Program w którym znajduje się właściwy kod zadania. Funkcja TextParser - z komendy tworzy słownik w którym słowa z są przyporządkowane do odpowiedniej kategorii. 
+Następnie słownik ten jest przekazywany do funkcji CommandsGenerator. Zwraca ona listę poleceń do urządzeń wygenerowanych na podstawie komendy.
+
+
+Program przetestowany na komendach:
+	    "włącz lampę w kuchni",
+            "włącz światło na parterze",
+            "załącz wszystkie lampy w salonie",
+            "włącz światło nad szafkami",
+            "lampa w kuchni",
+            "która jest godzina"
+            
+            

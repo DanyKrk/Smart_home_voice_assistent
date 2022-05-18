@@ -37,11 +37,12 @@ add_object(t_dict, "storeys", 2, ["pierwsze", "pierwsze piętro", "pierwszym", "
 add_object(t_dict, "storeys", 3, ["drugie", "drugie piętro", "drugim", "drugim piętrze"])
 add_object(t_dict, "storeys", 0, ["piwnica", "piwnicy"])
 
-add_object(t_dict, "devices", "light", ["lampa", "lampę", "światło", "oświetlenie", "żarówka", "żarówkę"])
+add_object(t_dict, "devices", "lamp", ["lampa", "lampę", "światło", "oświetlenie", "żarówka", "żarówkę"])
 
 add_object(t_dict, "actions", "on", ["włączyć", "włącz", "załączyć", "załącz", "zapalić", "zapal", "zaświecić", "zaświeć"])
 add_object(t_dict, "actions", "off", ["wyłączyć", "wyłącz", "zgasić", "zgaś"])
 add_object(t_dict, "actions", "toggle", ["przełączyć", "przełącz", "zmienić", "zmień"])
 
+add_object(t_dict, "detailed_places", "above_the_cabinets", ["nad szafkami"])
 
 generate_translations_JSON(t_dict)
