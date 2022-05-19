@@ -1,0 +1,26 @@
+{
+  "places": {
+    "kitchen": ["kuchnia"],
+    "livroom": ["salon"],
+    "bathroom": ["łazienka"],
+    "bedroom": ["sypialnia"],
+    "patio": ["taras"],
+    "corridor": ["korytarz", "przedpokój"]
+  },
+  "detailed_places": {
+    "up": ["góra", "górny"],
+    "left": ["lewo"],
+    "down": ["dół", "dolny"],
+    "right": ["prawo"],
+    "mirror": ["lustro"],
+    "shelf": ["szafka"]
+  },
+  "devices": {
+    "light": ["światło", "oświetlenie", "lampa"]
+  },
+  "actions": {
+    "on": ["włącz", "załącz", "zapal", "odpal"],
+    "off": ["wyłącz", "zgaś"],
+    "toggle": ["zmień", "przełącz"]
+  }
+}

@@ -1,0 +1,40 @@
+{
+  "devices": [
+    {
+      "id": 1,
+      "name": "light",
+      "place": "livroom",
+      "detailed_place": "up"
+    },
+    {
+      "id": 2,
+      "name": "light",
+      "place": "kitchen",
+      "detailed_place": "shelf"
+    },
+    {
+      "id": 3,
+      "name": "light",
+      "place": "kitchen",
+      "detailed_place": "left"
+    },
+    {
+      "id": 4,
+      "name": "light",
+      "place": "bedroom",
+      "detailed_place": "right"
+    },
+    {
+      "id": 5,
+      "name": "light",
+      "place": "bedroom",
+      "detailed_place": "up"
+    },
+    {
+      "id": 6,
+      "name": "light",
+      "place": "bathroom",
+      "detailed_place": "mirror"
+    }
+  ]
+}
