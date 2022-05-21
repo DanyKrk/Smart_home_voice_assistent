@@ -1,0 +1,11 @@
+colorama==0.4.4
+comtypes==1.1.11
+paho-mqtt==1.6.1
+pypiwin32==223
+pystempel==1.2.0
+pyttsx3==2.90
+pywin32==304
+sortedcontainers==2.4.0
+SpeechRecognition==3.8.1
+thefuzz==0.19.0
+tqdm==4.64.0
