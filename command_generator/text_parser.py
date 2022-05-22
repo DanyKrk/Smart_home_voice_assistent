@@ -3,9 +3,9 @@ from thefuzz import process
 from stempel import StempelStemmer
 
 class TextParser:
-    def __init__(self):
+    def __init__(self, config_path):
         self.stemmer = StempelStemmer.polimorf()
-        with open('../configs/assistant_cfg.json', encoding='utf-8') as cfg:
+        with open(config_path, encoding='utf-8') as cfg:
             self.assistant_cfg = json.load(cfg)
             for subdict in self.assistant_cfg.values():
                 for key, value in subdict.items():
@@ -45,20 +45,13 @@ class TextParser:
         actions_list = [action for sublist in self.assistant_cfg['actions'].values() for action in sublist]
         storey_list = [storey for sublist in self.assistant_cfg['storeys'].values() for storey in sublist]
         storey_number_list = [number for sublist in self.assistant_cfg['storey_numbers'].values() for number in sublist]
-        print(storey_list)
-        print(storey_number_list)
 
+        text = ''.join(filter(lambda sign: sign != '%', text))
         text_list = text.split()
         text_list = list(filter(lambda word: len(word) > 2 or word.isnumeric(), text_list))
         text_list = list(map(self.stemmer.stem, text_list))
         print(text_list)
 
-        # room = self.get_best_match(process.extract(text, rooms_list))
-        # detailed_place = self.get_best_match(process.extract(text, detailed_places_list))
-        # device = self.get_best_match(process.extract(text, devices_list))
-        # action = self.get_best_match(process.extract(text, actions_list))
-        # storey = self.get_best_match(process.extract(text, storey_list))
-        # storey_number = self.get_best_match(process.extract(text, storey_number_list))
         room = self.get_best_match(text_list, rooms_list)
         detailed_place = self.get_best_match(text_list, detailed_places_list)
         device = self.get_best_match(text_list, devices_list)
@@ -73,9 +66,9 @@ class TextParser:
         storey_cmd = self.find_symbol_by_word(storey, self.assistant_cfg['storeys'])
         storey_number_cmd = self.find_symbol_by_word(storey_number, self.assistant_cfg['storey_numbers'])
 
-        if storey_cmd is not None and storey_number_cmd is not None:
+        if storey_cmd != 'floor_0' and storey_cmd is not None and storey_number_cmd is not None:
             storey_cmd = storey_cmd + storey_number_cmd
-        else:
+        elif storey_cmd != 'floor_0':
             storey_cmd = None
 
         if action_cmd == 'set':
@@ -96,9 +89,3 @@ class TextParser:
             'action': action_cmd,
             'storey': storey_cmd
         }
-
-
-text_parser = TextParser()
-while True:
-    text = input('>> ')
-    print(text_parser.parse_text(text))

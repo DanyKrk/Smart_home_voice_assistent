@@ -25,10 +25,10 @@
     "set": ["ustaw"]
   },
   "storeys": {
-    "floor_": ["piętro", "piętrze"]
+    "floor_": ["piętro", "piętrze"],
+    "floor_0": ["parter"]
   },
   "storey_numbers": {
-    "0": ["parter", "parterze"],
     "1": ["pierwsze", "pierwszym"],
     "2": ["drugie", "drugim"],
     "3": ["trzecie", "trzecim"]
