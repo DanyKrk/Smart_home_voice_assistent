@@ -21,13 +21,13 @@ class Device:
         self.detailed_place = detailed_place
 
 
-with open('assistant_config.json', encoding='utf-8') as cfg:
+with open('../configs/assistant_cfg.json', encoding='utf-8') as cfg:
     assistant_cfg = json.load(cfg)
     for subdict in assistant_cfg.values():
         for key, value in subdict.items():
             subdict[key] = list(map(stemmer.stem, value))
 
-with open('light_config.json') as cfg:
+with open('../configs/home_cfg.json') as cfg:
     light_cfg = json.load(cfg)
     light_list = []
     for light in light_cfg['devices']:
@@ -109,20 +109,24 @@ def parse_text(text):
     detailed_places_list = [place for sublist in assistant_cfg['detailed_places'].values() for place in sublist]
     devices_list = [device for sublist in assistant_cfg['devices'].values() for device in sublist]
     actions_list = [action for sublist in assistant_cfg['actions'].values() for action in sublist]
+    storey_list = [storey for sublist in assistant_cfg['storeys'].values() for storey in sublist]
 
     text_list = text.split()
-    text_list = list(filter(lambda word: len(word) > 2, text_list))
+    text_list = list(filter(lambda word: len(word) > 2 or word.isnumeric(), text_list))
     text = ' '.join(list(map(stemmer.stem, text_list)))
 
     place = get_best_match(process.extract(text, places_list))
     detailed_place = get_best_match(process.extract(text, detailed_places_list))
     device = get_best_match(process.extract(text, devices_list))
     action = get_best_match(process.extract(text, actions_list))
+    storey = get_best_match(process.extract(text, storey_list))
+    print(storey);
 
     place_cmd = find_symbol_by_word(place, assistant_cfg['places'])
     detailed_place_cmd = find_symbol_by_word(detailed_place, assistant_cfg['detailed_places'])
     device_cmd = find_symbol_by_word(device, assistant_cfg['devices'])
     action_cmd = find_symbol_by_word(action, assistant_cfg['actions'])
+    storey_cmd = find_symbol_by_word(storey, assistant_cfg['storeys'])
 
     return create_command(place_cmd, detailed_place_cmd, device_cmd, action_cmd)
 

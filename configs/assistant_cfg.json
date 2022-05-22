@@ -1,5 +1,5 @@
 {
-  "places": {
+  "rooms": {
     "kitchen": ["kuchnia"],
     "livroom": ["salon"],
     "bathroom": ["łazienka"],
@@ -21,6 +21,16 @@
   "actions": {
     "on": ["włącz", "załącz", "zapal", "odpal"],
     "off": ["wyłącz", "zgaś"],
-    "toggle": ["zmień", "przełącz"]
+    "toggle": ["zmień", "przełącz"],
+    "set": ["ustaw"]
+  },
+  "storeys": {
+    "floor_": ["piętro"]
+  },
+  "storey_numbers": {
+    "0": ["parter"],
+    "1": ["pierwsze"],
+    "2": ["drugie"],
+    "3": ["trzecie"]
   }
 }
