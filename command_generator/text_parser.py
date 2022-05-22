@@ -1,5 +1,4 @@
 import json
-from device import Device
 from thefuzz import process
 from stempel import StempelStemmer
 
@@ -12,22 +11,20 @@ class TextParser:
                 for key, value in subdict.items():
                     subdict[key] = list(map(self.stemmer.stem, value))
 
-        # with open('../configs/home_cfg.json', encoding='utf-8') as cfg:
-        #     device_cfg = json.load(cfg)
-        #     self.device_list = []
-        #     for device in device_cfg['devices']:
-        #         self.device_list.append(Device(device['name'],
-        #                                        device['storey'],
-        #                                        device['room'],
-        #                                        device['detailed_place'],
-        #                                        device['possible_actions']))
+    # def get_best_match(self, match_result):
+    #     if match_result[0][1] >= 85:
+    #         return match_result[0][0]
+    #
+    #     if match_result[0][1] >= 65 and (len(match_result) < 2 or match_result[0][1] / match_result[1][1] > 1.3):
+    #         return match_result[0][0]
+    #
+    #     return None
 
-    def get_best_match(self, match_result):
-        if match_result[0][1] >= 85:
-            return match_result[0][0]
-
-        if match_result[0][1] >= 65 and (len(match_result) < 2 or match_result[0][1] / match_result[1][1] > 1.3):
-            return match_result[0][0]
+    def get_best_match(self, word_list, ref_list):
+        for word in word_list:
+            result = process.extract(word, ref_list)
+            if result[0][1] >= 80:
+                return result[0][0]
 
         return None
 
@@ -48,17 +45,26 @@ class TextParser:
         actions_list = [action for sublist in self.assistant_cfg['actions'].values() for action in sublist]
         storey_list = [storey for sublist in self.assistant_cfg['storeys'].values() for storey in sublist]
         storey_number_list = [number for sublist in self.assistant_cfg['storey_numbers'].values() for number in sublist]
+        print(storey_list)
+        print(storey_number_list)
 
         text_list = text.split()
         text_list = list(filter(lambda word: len(word) > 2 or word.isnumeric(), text_list))
-        text = ' '.join(list(map(self.stemmer.stem, text_list)))
+        text_list = list(map(self.stemmer.stem, text_list))
+        print(text_list)
 
-        room = self.get_best_match(process.extract(text, rooms_list))
-        detailed_place = self.get_best_match(process.extract(text, detailed_places_list))
-        device = self.get_best_match(process.extract(text, devices_list))
-        action = self.get_best_match(process.extract(text, actions_list))
-        storey = self.get_best_match(process.extract(text, storey_list))
-        storey_number = self.get_best_match(process.extract(text, storey_number_list))
+        # room = self.get_best_match(process.extract(text, rooms_list))
+        # detailed_place = self.get_best_match(process.extract(text, detailed_places_list))
+        # device = self.get_best_match(process.extract(text, devices_list))
+        # action = self.get_best_match(process.extract(text, actions_list))
+        # storey = self.get_best_match(process.extract(text, storey_list))
+        # storey_number = self.get_best_match(process.extract(text, storey_number_list))
+        room = self.get_best_match(text_list, rooms_list)
+        detailed_place = self.get_best_match(text_list, detailed_places_list)
+        device = self.get_best_match(text_list, devices_list)
+        action = self.get_best_match(text_list, actions_list)
+        storey = self.get_best_match(text_list, storey_list)
+        storey_number = self.get_best_match(text_list, storey_number_list)
 
         room_cmd = self.find_symbol_by_word(room, self.assistant_cfg['rooms'])
         detailed_place_cmd = self.find_symbol_by_word(detailed_place, self.assistant_cfg['detailed_places'])
