@@ -1,12 +1,1 @@
-w sypialni
-Zapal światło w salonie
-Zgaś światło
-oświetlenie w łazience
-oświetlenie w łazience nad lustrem
-Zapal światło w kuchni nad szafkami
-Zapal światło w sypialni
-Zgaś prawe światło w sypialni
-światło w sypialni
-Zapal światło na tarasie
-Zapal światło w salonie nad zlewem
-Zapal światło w łazience pod szafkami
+ustaw światło na 20 stopni
