@@ -11,15 +11,6 @@ class TextParser:
                 for key, value in subdict.items():
                     subdict[key] = list(map(self.stemmer.stem, value))
 
-    # def get_best_match(self, match_result):
-    #     if match_result[0][1] >= 85:
-    #         return match_result[0][0]
-    #
-    #     if match_result[0][1] >= 65 and (len(match_result) < 2 or match_result[0][1] / match_result[1][1] > 1.3):
-    #         return match_result[0][0]
-    #
-    #     return None
-
     def get_best_match(self, word_list, ref_list):
         for word in word_list:
             result = process.extract(word, ref_list)

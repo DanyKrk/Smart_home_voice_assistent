@@ -5,7 +5,7 @@ from command_generator.commands_generator import CommandsGenerator
 
 publisher = Publisher()
 text_parser = TextParser('configs/assistant_cfg.json')
-command_generator = CommandsGenerator('Commands_translator_task/home_JSON.txt')
+command_generator = CommandsGenerator('Commands_translator_task/home_JSON.json')
 voice_assistant = VoiceAssistant()
 
 print('Podaj polecenie lub wciśnij enter, aby powiedzieć')

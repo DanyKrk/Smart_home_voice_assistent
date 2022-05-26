@@ -2,42 +2,42 @@
   "devices": [
     {
       "name": "light",
-      "place": "livroom",
+      "room": "livroom",
       "detailed_place": "up",
       "possible_actions": ["on", "off", "toggle", "set"],
       "storey": "floor_0"
     },
     {
       "name": "light",
-      "place": "kitchen",
+      "room": "kitchen",
       "detailed_place": "shelf",
       "possible_actions": ["on", "off", "toggle", "set"],
       "storey": "floor_0"
     },
     {
       "name": "light",
-      "place": "kitchen",
+      "room": "kitchen",
       "detailed_place": "left",
       "possible_actions": ["on", "off", "toggle", "set"],
       "storey": "floor_0"
     },
     {
       "name": "light",
-      "place": "bedroom",
+      "room": "bedroom",
       "detailed_place": "right",
       "possible_actions": ["on", "off", "toggle", "set"],
       "storey": "floor_1"
     },
     {
       "name": "light",
-      "place": "bedroom",
+      "room": "bedroom",
       "detailed_place": "up",
       "possible_actions": ["on", "off", "toggle", "set"],
       "storey": "floor_1"
     },
     {
       "name": "light",
-      "place": "bathroom",
+      "room": "bathroom",
       "detailed_place": "mirror",
       "possible_actions": ["on", "off", "toggle", "set"],
       "storey": "floor_1"
