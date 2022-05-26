@@ -30,11 +30,15 @@ class CommandsGenerator:
 
     # Tworzenie komendy na podstawie słownika urządzenia i akcji
     def device_command(self, action, device_dict):
-        tmp_command = "cmd/" + device_dict["name"]
+        tmp_command = "cmd/"
+        if device_dict["storey"] is not None:
+            tmp_command += device_dict["storey"]
         if device_dict["room"] is not None:
             tmp_command = tmp_command + "/" + device_dict["room"]
         if device_dict["detailed_place"] is not None:
             tmp_command = tmp_command + "/" + device_dict["detailed_place"]
+        if device_dict["name"] is not None:
+            tmp_command += "/" + device_dict["name"]
         if action != "toggle":
             if action not in device_dict["possible_actions"]:
                 print("Nie ma akcji: ", action, "dla urządzenia: ", device_dict["name"])
