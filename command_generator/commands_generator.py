@@ -5,6 +5,28 @@ class CommandsGenerator:
     def __init__(self, home_cfg_path):
         with open(home_cfg_path, encoding='utf-8') as cfg:
             self.home_dict = json.load(cfg)
+            self.rooms_list = self.create_rooms_list()
+            self.storeys_dict = self.create_storeys_dict()
+
+    def create_rooms_list(self):
+        rooms_list = []
+        for device_dict in self.home_dict["devices"]:
+            room = device_dict["room"]
+            if room not in rooms_list:
+                rooms_list.append(room)
+        return rooms_list
+
+    def create_storeys_dict(self):
+        storeys_dict = {}
+        for device_dict in self.home_dict["devices"]:
+            room = device_dict["room"]
+            storey = device_dict["storey"]
+            if storey not in storeys_dict.keys():
+                storeys_dict[storey] = []
+            if room not in storeys_dict[storey]:
+                storeys_dict[storey].append(room)
+        return storeys_dict
+
 
     # Tworzenie komendy na podstawie słownika urządzenia i akcji
     def device_command(self, action, device_dict):
@@ -22,7 +44,7 @@ class CommandsGenerator:
 
     # Sprawdzenie czy pokój istnieje
     def validate_room(self, room):
-        if room not in self.home_dict["rooms"]:
+        if room not in self.rooms_list:
             print("Nie ma pomieszczenia: ", room)
             return False
         return True
@@ -66,7 +88,7 @@ class CommandsGenerator:
     # lista urządzeń na danym piętrze
     def devices_in_storey(self, storey):
         devices = []
-        for room in self.home_dict["storeys"][storey]:
+        for room in self.storeys_dict[storey]:
             devices += self.devices_in_room(room)
         return devices
 
@@ -86,14 +108,14 @@ class CommandsGenerator:
         return devices
 
     def validate_storey(self, storey):
-        if storey in self.home_dict["storeys"].keys():
+        if storey in self.storeys_dict.keys():
             return True
         print("Nie ma piętra: ", storey)
         return False
 
     def room_is_in_storeys(self, room, storeys):
         for storey in storeys:
-            if room in self.home_dict["storeys"][storey]:
+            if room in self.storeys_dict[storey]:
                 return True
         return False
 
@@ -105,14 +127,14 @@ class CommandsGenerator:
             if self.validate_storey(storey):
                 storeys.append(storey)
         else:
-            for home_storey in self.home_dict["storeys"].keys():
+            for home_storey in self.storeys_dict.keys():
                 storeys.append(home_storey)
 
         rooms = []
         if room is not None and self.room_is_in_storeys(room, storeys):
                 rooms.append(room)
         else:
-            for storey, storey_rooms in self.home_dict["storeys"].items():
+            for storey, storey_rooms in self.storeys_dict.items():
                 if storey in storeys:
                     rooms += storey_rooms
 
