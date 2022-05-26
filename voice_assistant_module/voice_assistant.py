@@ -11,6 +11,7 @@ class VoiceAssistant:
     def listen(self):
         with sr.Microphone() as source:
             try:
+                print('Słucham...')
                 audio = self.stt.listen(source)
                 text = self.stt.recognize_google(audio, language='pl_PL')
             except sr.UnknownValueError:

@@ -1,6 +1,6 @@
 import paho.mqtt.client as mqtt
 
-host = '127.0.0.1'
+host = 'test.mosquitto.org'
 port = 1883
 
 class Publisher:

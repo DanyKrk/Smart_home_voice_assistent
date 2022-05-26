@@ -1,18 +1,20 @@
 import paho.mqtt.client as mqtt
+import sys
 
-host = '127.0.0.1'
+host = 'test.mosquitto.org'
 port = 1883
 
 class Subscriber:
-    def __init__(self):
+    def __init__(self, topic):
         self.client = mqtt.Client('subscriber')
         self.client.on_message = self.message_received
-        self.client.on_subscribe = self.subscribe_to_cmd
         self.client.connect(host, port)
+        self.client.subscribe(topic)
 
     def message_received(self, client, user, message):
         payload = str(message.payload.decode('utf-8'))
         print('Subscriber: received message: ' + payload + ' on topic: ' + message.topic)
 
-    def subscribe_to_cmd(self):
-        self.client.subscribe('cmd/#')
+
+subscriber = Subscriber(sys.argv[1])
+subscriber.client.loop_forever()
