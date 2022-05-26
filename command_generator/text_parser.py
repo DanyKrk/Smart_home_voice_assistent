@@ -41,7 +41,6 @@ class TextParser:
         text_list = text.split()
         text_list = list(filter(lambda word: len(word) > 2 or word.isnumeric(), text_list))
         text_list = list(map(self.stemmer.stem, text_list))
-        print(text_list)
 
         room = self.get_best_match(text_list, rooms_list)
         detailed_place = self.get_best_match(text_list, detailed_places_list)

@@ -5,7 +5,7 @@ from command_generator.commands_generator import CommandsGenerator
 
 publisher = Publisher()
 text_parser = TextParser('configs/assistant_cfg.json')
-command_generator = CommandsGenerator('Commands_translator_task/home_JSON.txt')
+command_generator = CommandsGenerator('configs/home_cfg.json')
 voice_assistant = VoiceAssistant()
 
 print('Podaj polecenie lub wciśnij enter, aby powiedzieć')
@@ -14,6 +14,7 @@ while True:
     if len(text) == 0:
         text = voice_assistant.listen()
 
-    print(command_generator.get_commands(text_parser.parse_text(text)))
-
-# publisher.publish('cmd/kitchen/light', 'on')
+    command_list = command_generator.get_commands(text_parser.parse_text(text))
+    for cmd in command_list:
+        topic, payload = cmd.split()
+        publisher.publish(topic, payload)
