@@ -1,6 +1,6 @@
 import json
 
-translations_JSON_file_name = "translations_JSON.txt"
+translations_JSON_file_name = "translations_JSON.json"
 home_JSON_file_name = "home_JSON.txt"
 
 def get_dict_from_file(file_name):

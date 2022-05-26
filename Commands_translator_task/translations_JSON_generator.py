@@ -1,6 +1,6 @@
 import json
 
-JSON_file_name = "translations_JSON.txt"
+JSON_file_name = "translations_JSON.json"
 
 
 def generate_translations_JSON(home_dict):
