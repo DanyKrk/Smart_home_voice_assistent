@@ -172,8 +172,10 @@ class CommandsGenerator:
         for device_dict in device_dicts:
             commands.append(self.device_command(action, device_dict))
 
+        created_command = True
         if len(commands) == 0:
             print("Nie rozumiem polecenia (nie stworzyłem żadnej komendy)")
+            created_command = False
 
-        return commands
+        return created_command, commands
 
