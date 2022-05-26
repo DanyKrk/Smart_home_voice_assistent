@@ -1,40 +1,46 @@
 {
   "devices": [
     {
-      "id": 1,
       "name": "light",
       "place": "livroom",
-      "detailed_place": "up"
+      "detailed_place": "up",
+      "possible_actions": ["on", "off", "toggle", "set"],
+      "storey": "floor_0"
     },
     {
-      "id": 2,
       "name": "light",
       "place": "kitchen",
-      "detailed_place": "shelf"
+      "detailed_place": "shelf",
+      "possible_actions": ["on", "off", "toggle", "set"],
+      "storey": "floor_0"
     },
     {
-      "id": 3,
       "name": "light",
       "place": "kitchen",
-      "detailed_place": "left"
+      "detailed_place": "left",
+      "possible_actions": ["on", "off", "toggle", "set"],
+      "storey": "floor_0"
     },
     {
-      "id": 4,
       "name": "light",
       "place": "bedroom",
-      "detailed_place": "right"
+      "detailed_place": "right",
+      "possible_actions": ["on", "off", "toggle", "set"],
+      "storey": "floor_1"
     },
     {
-      "id": 5,
       "name": "light",
       "place": "bedroom",
-      "detailed_place": "up"
+      "detailed_place": "up",
+      "possible_actions": ["on", "off", "toggle", "set"],
+      "storey": "floor_1"
     },
     {
-      "id": 6,
       "name": "light",
       "place": "bathroom",
-      "detailed_place": "mirror"
+      "detailed_place": "mirror",
+      "possible_actions": ["on", "off", "toggle", "set"],
+      "storey": "floor_1"
     }
   ]
 }
