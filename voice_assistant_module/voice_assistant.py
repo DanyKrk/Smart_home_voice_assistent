@@ -6,12 +6,11 @@ class VoiceAssistant:
         self.stt = sr.Recognizer()
         self.tts = pyttsx3.init()
         self.tts.setProperty('volume', 0.5)
-        self.tts.setProperty('rate', 200)
+        self.tts.setProperty('rate', 150)
 
     def listen(self):
         with sr.Microphone() as source:
             try:
-                print('Słucham...')
                 audio = self.stt.listen(source)
                 text = self.stt.recognize_google(audio, language='pl_PL')
             except sr.UnknownValueError:
