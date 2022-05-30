@@ -39,10 +39,11 @@ class CommandsGenerator:
             tmp_command = tmp_command + "/" + device_dict["detailed_place"]
         if device_dict["name"] is not None:
             tmp_command += "/" + device_dict["name"]
-        if action != "toggle":
-            if action not in device_dict["possible_actions"]:
-                print("Nie ma akcji: ", action, "dla urządzenia: ", device_dict["name"])
-                exit(1)
+        split_action = action.split()[0]
+        if split_action != "toggle":
+            if split_action not in device_dict["possible_actions"]:
+                print("Nie ma akcji: ", split_action, "dla urządzenia: ", device_dict["name"])
+                # exit(1)
         tmp_command = tmp_command + " " + action
         return tmp_command
 
@@ -136,7 +137,7 @@ class CommandsGenerator:
 
         rooms = []
         if room is not None and self.room_is_in_storeys(room, storeys):
-                rooms.append(room)
+            rooms.append(room)
         else:
             for storey, storey_rooms in self.storeys_dict.items():
                 if storey in storeys:
@@ -149,7 +150,8 @@ class CommandsGenerator:
                 continue
             if detailed_place is not None and device_dict["detailed_place"] != detailed_place:
                 continue
-            if action not in device_dict["possible_actions"]:
+            split_action = action.split()[0]
+            if split_action not in device_dict["possible_actions"]:
                 continue
             device_dicts.append(device_dict)
 

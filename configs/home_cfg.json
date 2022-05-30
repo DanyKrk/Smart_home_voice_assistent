@@ -41,6 +41,41 @@
       "detailed_place": "mirror",
       "possible_actions": ["on", "off", "toggle", "set"],
       "storey": "floor_1"
+    },
+    {
+      "name": "aircond",
+      "room": "bedroom",
+      "detailed_place": "up",
+      "possible_actions": ["on", "off", "set"],
+      "storey": "floor_1"
+    },
+    {
+      "name": "radio",
+      "room": "livroom",
+      "detailed_place": "left",
+      "possible_actions": ["on", "off", "set"],
+      "storey": "floor_0"
+    },
+    {
+      "name": "radio",
+      "room": "bedroom",
+      "detailed_place": "down",
+      "possible_actions": ["on", "off", "set"],
+      "storey": "floor_1"
+    },
+    {
+      "name": "vacuum",
+      "room": "",
+      "detailed_place": "",
+      "possible_actions": ["on", "off"],
+      "storey": ""
+    },
+    {
+      "name": "alarm",
+      "room": "bedroom",
+      "detailed_place": "left",
+      "possible_actions": ["on", "off", "set"],
+      "storey": "floor_1"
     }
   ]
 }

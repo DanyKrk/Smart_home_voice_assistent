@@ -16,7 +16,11 @@
     "shelf": ["szafka"]
   },
   "devices": {
-    "light": ["światło", "oświetlenie", "lampa"]
+    "light": ["światło", "oświetlenie", "lampa"],
+    "alarm": ["alarm", "budzik"],
+    "aircond": ["klimatyzacja"],
+    "radio": ["radio"],
+    "vacuum": ["odkurzacz"]
   },
   "actions": {
     "on": ["włącz", "załącz", "zapal", "odpal"],

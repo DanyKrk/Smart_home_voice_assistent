@@ -1,4 +1,5 @@
 from kivy.app import App
+from kivy.clock import Clock
 from kivy.core.window import Window
 from kivy.uix.boxlayout import BoxLayout
 from kivy.uix.button import Button
@@ -11,7 +12,6 @@ from command_generator.text_parser import TextParser
 from command_generator.commands_generator import CommandsGenerator
 import time
 
-
 publisher = Publisher()
 text_parser = TextParser('configs/assistant_cfg.json')
 command_generator = CommandsGenerator('configs/home_cfg.json')
@@ -22,10 +22,14 @@ class MainLayout(BoxLayout):
     def __init__(self, **kwargs):
         super(MainLayout, self).__init__(**kwargs)
 
-        self.info_label = Label(text='Asystent domowy',
-                                color=(0, 0, 0,),
-                                font_size='40sp',
-                                size_hint=(1, 0.3))
+        self.title_label = Label(text='Asystent domowy',
+                                 color=(0, 0, 0),
+                                 font_size='40sp',
+                                 size_hint=(1, 0.3))
+        self.info_label = Label(text='Naciśnij przycisk lub wpisz polecenie',
+                                color=(0, 0, 0),
+                                font_size='15sp',
+                                size_hint=(1, 0.2))
         self.listen_button = Button(text='Naciśnij i mów',
                                     size_hint=(0.4, 0.1),
                                     font_size='20sp',
@@ -44,16 +48,16 @@ class MainLayout(BoxLayout):
         self.command_input_box.add_widget(self.command_input)
         self.command_input_box.add_widget(self.command_submit)
 
+        self.add_widget(self.title_label)
         self.add_widget(self.info_label)
         self.add_widget(self.listen_button)
         self.add_widget(self.command_input_box)
 
     def listen_action(self):
-        self.listen_button.text = 'Słucham'
-        time.sleep(0.2)
+        Clock.schedule_once(lambda dt: self.change_label('Słucham...'), 0)
         command = voice_assistant.listen()
         self.handle_command(command)
-        self.listen_button.text = 'Naciśnij i mów'
+        Clock.schedule_once(lambda dt: self.change_label('Naciśnij przycisk lub wpisz polecenie'), 0)
 
     def handle_command(self, text):
         parsed = text_parser.parse_text(text)
@@ -61,11 +65,15 @@ class MainLayout(BoxLayout):
         print(command_list)
         if created:
             for cmd in command_list:
-                topic, payload = cmd.split()
+                topic, payload = cmd.split(maxsplit=1)
                 publisher.publish(topic, payload)
             voice_assistant.speak('Wysłano komendy')
         else:
             voice_assistant.speak('Nie stworzono komend')
+
+    def change_label(self, text):
+        self.info_label.text = text
+
 
 class HomeAssistant(App):
     def build(self):
@@ -73,5 +81,6 @@ class HomeAssistant(App):
         return MainLayout(orientation='vertical',
                           spacing=20,
                           padding=80)
+
 
 HomeAssistant().run()
