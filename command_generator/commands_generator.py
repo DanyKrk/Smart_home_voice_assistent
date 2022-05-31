@@ -115,7 +115,6 @@ class CommandsGenerator:
     def validate_storey(self, storey):
         if storey in self.storeys_dict.keys():
             return True
-        print("Nie ma piętra: ", storey)
         return False
 
     def room_is_in_storeys(self, room, storeys):
@@ -126,18 +125,26 @@ class CommandsGenerator:
 
     def get_device_dicts(self, storey, room, detailed_place, device, action):
         device_dicts = []
+        error_message = ""
 
         storeys = []
         if storey is not None:
             if self.validate_storey(storey):
                 storeys.append(storey)
+            else:
+                error_message = "Nie ma piętra: " + storey
+                return error_message, device_dicts
         else:
             for home_storey in self.storeys_dict.keys():
                 storeys.append(home_storey)
 
         rooms = []
-        if room is not None and self.room_is_in_storeys(room, storeys):
-            rooms.append(room)
+        if room is not None:
+            if self.room_is_in_storeys(room, storeys):
+                rooms.append(room)
+            else:
+                error_message = "Nie ma pomieszczenia: " + room + "na piętrach: " + storeys
+                return error_message, device_dicts
         else:
             for storey, storey_rooms in self.storeys_dict.items():
                 if storey in storeys:
@@ -155,7 +162,10 @@ class CommandsGenerator:
                 continue
             device_dicts.append(device_dict)
 
-        return device_dicts
+        if len(device_dicts) == 0:
+            error_message = f"Nie ma urządzenia {device} na piętrach {str(storeys)}, w pomieszczeniach " \
+                            f"{str(rooms)}, w miejscu {detailed_place}, o możliwej akcji {action}"
+        return error_message, device_dicts
 
     # Generowanie wyjściowych poleceń (zwracana jest lista)
     def get_commands(self, command_dict):
@@ -168,16 +178,10 @@ class CommandsGenerator:
         if action is None:
             action = "toggle"
 
-        device_dicts = self.get_device_dicts(storey, room, detailed_place, device, action)
+        error_message, device_dicts = self.get_device_dicts(storey, room, detailed_place, device, action)
 
         commands = []
         for device_dict in device_dicts:
             commands.append(self.device_command(action, device_dict))
 
-        created_command = True
-        if len(commands) == 0:
-            print("Nie rozumiem polecenia (nie stworzyłem żadnej komendy)")
-            created_command = False
-
-        return created_command, commands
-
+        return error_message, commands
