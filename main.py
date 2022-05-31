@@ -4,6 +4,7 @@ from kivy.core.window import Window
 from kivy.uix.boxlayout import BoxLayout
 from kivy.uix.button import Button
 from kivy.uix.label import Label
+from kivy.uix.popup import Popup
 from kivy.uix.textinput import TextInput
 
 from voice_assistant_module.voice_assistant import VoiceAssistant
@@ -22,19 +23,19 @@ class MainLayout(BoxLayout):
     def __init__(self, **kwargs):
         super(MainLayout, self).__init__(**kwargs)
 
+        self.popup = Popup(title='Słucham',
+                           content=Label(text='Słucham...', font_size='20sp'),
+                           size_hint=(None, None), size=(200, 200))
         self.title_label = Label(text='Asystent domowy',
                                  color=(0, 0, 0),
                                  font_size='40sp',
                                  size_hint=(1, 0.3))
-        self.info_label = Label(text='Naciśnij przycisk lub wpisz polecenie',
-                                color=(0, 0, 0),
-                                font_size='15sp',
-                                size_hint=(1, 0.2))
         self.listen_button = Button(text='Naciśnij i mów',
                                     size_hint=(0.4, 0.1),
                                     font_size='20sp',
                                     pos_hint={'center_x': 0.5},
-                                    on_press=lambda instance: self.listen_action())
+                                    on_press=lambda instance: self.popup.open(),
+                                    on_release=lambda instance: self.listen_action())
         self.command_input_box = BoxLayout(orientation='horizontal',
                                            size_hint=(0.7, 0.1),
                                            spacing=10,
@@ -49,15 +50,13 @@ class MainLayout(BoxLayout):
         self.command_input_box.add_widget(self.command_submit)
 
         self.add_widget(self.title_label)
-        self.add_widget(self.info_label)
         self.add_widget(self.listen_button)
         self.add_widget(self.command_input_box)
 
     def listen_action(self):
-        Clock.schedule_once(lambda dt: self.change_label('Słucham...'), 0)
         command = voice_assistant.listen()
         self.handle_command(command)
-        Clock.schedule_once(lambda dt: self.change_label('Naciśnij przycisk lub wpisz polecenie'), 0)
+        self.popup.dismiss()
 
     def handle_command(self, text):
         parsed = text_parser.parse_text(text)
@@ -70,9 +69,6 @@ class MainLayout(BoxLayout):
             voice_assistant.speak('Wysłano komendy')
         else:
             voice_assistant.speak('Nie stworzono komend')
-
-    def change_label(self, text):
-        self.info_label.text = text
 
 
 class HomeAssistant(App):
