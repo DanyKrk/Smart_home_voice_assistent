@@ -8,6 +8,7 @@ class CommandsGenerator:
             self.rooms_list = self.create_rooms_list()
             self.storeys_dict = self.create_storeys_dict()
 
+
     def create_rooms_list(self):
         rooms_list = []
         for device_dict in self.home_dict["devices"]:
@@ -143,7 +144,7 @@ class CommandsGenerator:
             if self.room_is_in_storeys(room, storeys):
                 rooms.append(room)
             else:
-                error_message = "Nie ma pomieszczenia: " + room + "na piętrach: " + storeys
+                error_message = "Nie ma pomieszczenia: " + room + " na piętrach: " + str(storeys)
                 return error_message, device_dicts
         else:
             for storey, storey_rooms in self.storeys_dict.items():
@@ -163,8 +164,10 @@ class CommandsGenerator:
             device_dicts.append(device_dict)
 
         if len(device_dicts) == 0:
-            error_message = f"Nie ma urządzenia {device} na piętrach {str(storeys)}, w pomieszczeniach " \
-                            f"{str(rooms)}, w miejscu {detailed_place}, o możliwej akcji {action}"
+            if device is None:
+                error_message = "Nie podano urządzenia"
+            else:
+                error_message = "Nie ma podanego urządzenia w podanych miejscach"
         return error_message, device_dicts
 
     # Generowanie wyjściowych poleceń (zwracana jest lista)

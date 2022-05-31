@@ -65,10 +65,10 @@
     },
     {
       "name": "vacuum",
-      "room": "",
-      "detailed_place": "",
+      "room": "livroom",
+      "detailed_place": "left",
       "possible_actions": ["on", "off"],
-      "storey": ""
+      "storey": "floor_0"
     },
     {
       "name": "alarm",

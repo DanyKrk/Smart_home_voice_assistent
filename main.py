@@ -60,15 +60,15 @@ class MainLayout(BoxLayout):
 
     def handle_command(self, text):
         parsed = text_parser.parse_text(text)
-        created, command_list = command_generator.get_commands(parsed)
+        error_msg, command_list = command_generator.get_commands(parsed)
         print(command_list)
-        if created:
+        if len(error_msg) == 0:
             for cmd in command_list:
                 topic, payload = cmd.split(maxsplit=1)
                 publisher.publish(topic, payload)
             voice_assistant.speak('Wysłano komendy')
         else:
-            voice_assistant.speak('Nie stworzono komend')
+            voice_assistant.speak(error_msg)
 
 
 class HomeAssistant(App):
