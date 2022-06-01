@@ -167,7 +167,7 @@ class CommandsGenerator:
             if device is None:
                 error_message = "Nie podano urządzenia"
             else:
-                error_message = "Nie ma podanego urządzenia w podanych miejscach"
+                error_message = "Nie ma podanego urządzenia w podanych miejscach lub o podanej akcji"
         return error_message, device_dicts
 
     # Generowanie wyjściowych poleceń (zwracana jest lista)
