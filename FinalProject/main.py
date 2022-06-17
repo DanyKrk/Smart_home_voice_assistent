@@ -7,10 +7,10 @@ from kivy.uix.label import Label
 from kivy.uix.popup import Popup
 from kivy.uix.textinput import TextInput
 
-from voice_assistant_module.voice_assistant import VoiceAssistant
+from voice_assistant.voice_assistant import VoiceAssistant
 from mqtt.publisher import Publisher
-from command_generator.text_parser import TextParser
-from command_generator.commands_generator import CommandsGenerator
+from commands_generator.text_parser import TextParser
+from commands_generator.commands_generator import CommandsGenerator
 import time
 
 publisher = Publisher()
