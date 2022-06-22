@@ -76,6 +76,20 @@
       "detailed_place": "left",
       "possible_actions": ["on", "off", "set"],
       "storey": "floor_1"
+    },
+    {
+      "name": "tv",
+      "room": "livroom",
+      "detailed_place": "down",
+      "possible_actions": ["on", "off", "set"],
+      "storey": "floor_0"
+    },
+    {
+      "name": "shut",
+      "room": "bedroom",
+      "detailed_place": "left",
+      "possible_actions": ["open", "close"],
+      "storey": "floor_1"
     }
   ]
 }

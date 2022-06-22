@@ -20,13 +20,17 @@
     "alarm": ["alarm", "budzik"],
     "aircond": ["klimatyzacja"],
     "radio": ["radio"],
-    "vacuum": ["odkurzacz"]
+    "vacuum": ["odkurzacz"],
+    "tv": ["telewizor", "telewizja"],
+    "shut": ["żaluzje"]
   },
   "actions": {
     "on": ["włącz", "załącz", "zapal", "odpal"],
     "off": ["wyłącz", "zgaś"],
     "toggle": ["zmień", "przełącz"],
-    "set": ["ustaw"]
+    "set": ["ustaw", "głośność"],
+    "open": ["otwórz", "rozsuń"],
+    "close": ["zamknij", "zasuń"]
   },
   "storeys": {
     "floor_": ["piętro", "piętrze"],

@@ -2,8 +2,8 @@ import json
 from thefuzz import process
 from stempel import StempelStemmer
 
-#Klasa obiektów, która zamienia tekst na słownik komendy, przekazywany potem do obiektu klasy commands_generator.
-#W słowniku komendy wyekstraktowane z tekstu są piętro, pokój, szczegółowe miejsce w pokoju, urządzenie i akcja polecenia
+# Klasa obiektów, która zamienia tekst na słownik komendy, przekazywany potem do obiektu klasy commands_generator.
+# W słowniku komendy wyekstraktowane z tekstu są piętro, pokój, szczegółowe miejsce w pokoju, urządzenie i akcja polecenia
 
 class TextParser:
     def __init__(self, config_path):
@@ -14,6 +14,8 @@ class TextParser:
                 for key, value in subdict.items():
                     subdict[key] = list(map(self.stemmer.stem, value))
 
+    # metoda używa biblioteki thefuzz do znalezienia najlepszego dopasowania z danej listy słów
+    # w danej referencyjnej liście słów
     def get_best_match(self, word_list, ref_list):
         for word in word_list:
             result = process.extract(word, ref_list)
@@ -22,6 +24,8 @@ class TextParser:
 
         return None
 
+    # metoda znajduje w słowniku załadowanym z pliku konfiguracyjnego odpowiedni symbol
+    # części komendy na podstawie danego słowa
     def find_symbol_by_word(self, word, source):
         if word is None:
             return None
@@ -32,6 +36,11 @@ class TextParser:
 
         return None
 
+    # metoda parsuje otrzymany tekst, tzn. tworzy listy pokoi, szczegółowych miejsc,
+    # urządzeń, akcji i pięter, a następnie filtruje z otrzymanego tekstu słowa o długości co
+    # najmniej 3, używa stemmer języka polskiego, aby zamienić je na rdzenie słowotwórcze,
+    # następnie, korzystając z funkcji get_best_match, znajduje najlepsze dopasowania słów
+    # dla pokoju, urządzenia, itd. i na podstawie tych dopasowań tworzy słownik fragmentów komendy i go zwraca
     def parse_text(self, text):
         rooms_list = [room for sublist in self.assistant_cfg['rooms'].values() for room in sublist]
         detailed_places_list = [place for sublist in self.assistant_cfg['detailed_places'].values() for place in sublist]

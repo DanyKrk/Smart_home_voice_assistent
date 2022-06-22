@@ -1,6 +1,7 @@
 import speech_recognition as sr
 import pyttsx3
 
+# klasa asystenta głosowego
 class VoiceAssistant:
     def __init__(self):
         self.stt = sr.Recognizer()
@@ -8,6 +9,7 @@ class VoiceAssistant:
         self.tts.setProperty('volume', 0.5)
         self.tts.setProperty('rate', 150)
 
+    # metoda odpowiadająca za słuchanie polecenia z mikrofonu
     def listen(self):
         with sr.Microphone() as source:
             try:
@@ -20,6 +22,7 @@ class VoiceAssistant:
 
         return text
 
+    # metoda odpowiadająca za zamianę tekstu na mowę
     def speak(self, text):
         self.tts.say(text)
         self.tts.runAndWait()
