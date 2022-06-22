@@ -10,7 +10,7 @@ class CommandsGenerator:
             self.rooms_list = self.create_rooms_list()
             self.storeys_dict = self.create_storeys_dict()
 
-
+    # Tworzy listę pomieszczeń występujących w home_cfg
     def create_rooms_list(self):
         rooms_list = []
         for device_dict in self.home_dict["devices"]:
@@ -19,6 +19,7 @@ class CommandsGenerator:
                 rooms_list.append(room)
         return rooms_list
 
+    # Tworzy słownik w którym kluczami są piętra, a wartościami są listy pomieszczeń znajdujących się na danym piętrze
     def create_storeys_dict(self):
         storeys_dict = {}
         for device_dict in self.home_dict["devices"]:
@@ -108,6 +109,7 @@ class CommandsGenerator:
                 devices.append(device_dict)
         return devices
 
+    # zwraca listę zawierającą wszystkie słowniki opisujące urządzenia o danej nazwie
     def all_devices(self, name):
         devices = []
         for device_dict in self.home_dict["devices"]:
@@ -115,17 +117,26 @@ class CommandsGenerator:
                 devices.append(device_dict)
         return devices
 
+    # Sprawdza, czy dane piętro istnieje (jest w home_cfg)
     def validate_storey(self, storey):
         if storey in self.storeys_dict.keys():
             return True
         return False
 
+    # Sprawdza, czy dane pomieszczenie znajduje się na którymś z pięter wyszególnionych w storeys
     def room_is_in_storeys(self, room, storeys):
         for storey in storeys:
             if room in self.storeys_dict[storey]:
                 return True
         return False
 
+    # Zwraca komunikat błędu, oraz listę słowników opisujących urządzenia. Urządzenia są wybierane na podstawie podanego
+    # (lub nie) piętra, pomieszczena, szegółowego miejsca, nazwy urządzenia i akcji. Jeżeli nie podano piętra, to jest ono dowolne.
+    # Jeżeli nie podano pomieszcenia, to jest ono dowolne (w ramach wyspecyfiowanych pięter). Jeżeli nie jest
+    # podane szczegółowe miejsce urządzenia w pomieszczeniu, to brane są wszystkie urządzenia o danej nazwie znajdujące
+    # się w danym pomieszceniu. Jeżeli znalezione zostanie conajmniej jedno urządzenie spełniające kryteria,
+    # komunikat błędu jest pustym ciągiem znaków. W przeciwnym razie zwracany jest odpowiedni komunikat w zależności
+    # od sytuacji.
     def get_device_dicts(self, storey, room, detailed_place, device, action):
         device_dicts = []
         error_message = ""
@@ -172,7 +183,7 @@ class CommandsGenerator:
                 error_message = "Nie ma podanego urządzenia w podanych miejscach lub o podanej akcji"
         return error_message, device_dicts
 
-    # Generowanie wyjściowych poleceń (zwracana jest lista)
+    # Generowanie wyjściowych poleceń (zwracana jest lista). Domyślną akcją jest "toggle"
     def get_commands(self, command_dict):
         storey = command_dict["storey"]
         room = command_dict["room"]
