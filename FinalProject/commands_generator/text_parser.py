@@ -2,6 +2,9 @@ import json
 from thefuzz import process
 from stempel import StempelStemmer
 
+#Klasa obiektów, która zamienia tekst na słownik komendy, przekazywany potem do obiektu klasy commands_generator.
+#W słowniku komendy wyekstraktowane z tekstu są piętro, pokój, szczegółowe miejsce w pokoju, urządzenie i akcja polecenia
+
 class TextParser:
     def __init__(self, config_path):
         self.stemmer = StempelStemmer.polimorf()

@@ -1,6 +1,8 @@
 import json
 
-
+# Klasa obiektów, która zamienia (metodą get_commands) słownik polecenia, zwracany prze text_parser, na listę poleceń,
+# oraz komunikat ewentualnego błędu (np. kiedy podane urządzenie nie istnieje).
+# polecenia są postaci: cmd/piętro/pokój/szczegółowe_miejsce/urządzenie akcja
 class CommandsGenerator:
     def __init__(self, home_cfg_path):
         with open(home_cfg_path, encoding='utf-8') as cfg:
@@ -29,7 +31,7 @@ class CommandsGenerator:
         return storeys_dict
 
 
-    # Tworzenie komendy na podstawie słownika urządzenia i akcji
+    # Tworzenie komendy na podstawie słownika opisującego urządzenie i akcji
     def device_command(self, action, device_dict):
         tmp_command = "cmd/"
         if device_dict["storey"] is not None:
